@@ -9,6 +9,7 @@ import 'features/auth/login_screen.dart';
 import 'features/auth/register_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'services/auth_service.dart';
+import 'widgets/nav/glass_nav_shell.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authServiceProvider);
@@ -42,29 +43,62 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
-          path: '/register',
-          builder: (context, state) => const RegisterScreen()),
+        path: '/login',
+        builder: (context, state) => const LoginScreen(),
+      ),
       GoRoute(
-          path: '/onboarding',
-          builder: (context, state) => const OnboardingScreen()),
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
+      ),
       GoRoute(
-        path: '/',
-        builder: (context, state) => const HomeScreen(),
-        routes: [
-          GoRoute(
-              path: 'metabolic',
-              builder: (context, state) => const MetabolicScreen()),
-          GoRoute(
-              path: 'lifestyle',
-              builder: (context, state) => const LifestyleScreen()),
-          GoRoute(
-              path: 'mental',
-              builder: (context, state) => const MentalWellBeingScreen()),
-          GoRoute(
-              path: 'pediatric',
-              builder: (context, state) => const PediatricScreen()),
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            GlassNavShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/metabolic',
+                builder: (context, state) => const MetabolicScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/lifestyle',
+                builder: (context, state) => const LifestyleScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/mental',
+                builder: (context, state) => const MentalWellBeingScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/pediatric',
+                builder: (context, state) => const PediatricScreen(),
+              ),
+            ],
+          ),
         ],
       ),
     ],

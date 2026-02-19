@@ -15,7 +15,7 @@ class MaternalHealthApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'Maternal Health Agent',
+      title: 'Mama\'s Care',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: router,
